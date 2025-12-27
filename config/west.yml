@@ -2,20 +2,18 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: badjeff
-      url-base: https://github.com/badjeff
-    - name: george-norton
-      url-base: https://github.com/george-norton
+    - name: ggrocer
+      url-base: https://github.com/greengrocer98
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
     - name: zmk-paw3395-driver
-      remote: badjeff
+      remote: ggrocer
       revision: main
-    - name: zmk-behavior-sensor-attr-cycle 
-      remote: george-norton
+    - name: zmk-vfx-rgdled-indicator
+      remote: ggrocer
       revision: main
   self:
     path: config

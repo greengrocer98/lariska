@@ -1,11 +1,12 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-// #include "lariska-layouts.dtsi"
+#include "mouse_leds.dtsi"
 
 / {
     chosen {
         zmk,battery = &vbatt;
         zmk,kscan = &kscan0;
         zmk,matrix-transform = &default_transform;
+		zmk,backlight = &backlight;
     }; 
 
     vbatt: vbatt {
@@ -26,7 +27,6 @@
             RC(0,2)
             RC(0,3)
             RC(0,4)
-            RC(0,5)
         >;
     };
 
@@ -39,7 +39,6 @@
             , <&gpio0 28 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             , <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             , <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             ;
     };
 
@@ -120,14 +119,15 @@ encoder: &qdec0 {
 
 	mou0: pd@0 {
 		compatible = "pixart,paw3395";
-	  status = "okay";
+	    status = "okay";
 		label = "MOU0";
 		reg = <0>;
 		spi-max-frequency = <4000000>;
 
 		// paw3395 driver parameters
 		irq-gpios = <&gpio0 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-		cpi = <2400>;
+		cpi-gpios = <&gpio1 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+		cpi = <600 1200 2400 3200>;
 		// swap-xy; /* optional */
 		invert-x; /* optional */
 		// invert-y; /* optional */
@@ -144,16 +144,16 @@ encoder: &qdec0 {
   };
 };
 
-/{
-	dpi_cycle: dpi_cycle {
-		compatible = "zmk,behavior-sensor-attr-cycle";
-		#binding-cells = <1>;
-		values = < 400 800 1200 2400 3200 >;
-		attr = <0>;
-		sensor_device = <&mou0>;
-		display-name = "DPI cycle";
-        load_delay = <200>;
-        save_delay = <1000>;
-		persistant;
-	};
-};
+// /{
+// 	dpi_cycle: dpi_cycle {
+// 		compatible = "zmk,behavior-sensor-attr-cycle";
+// 		#binding-cells = <1>;
+// 		values = < 400 800 1200 2400 3200 >;
+// 		attr = <0>;
+// 		sensor_device = <&mou0>;
+// 		display-name = "DPI cycle";
+//         load_delay = <200>;
+//         save_delay = <1000>;
+// 		persistant;
+// 	};
+// };
